@@ -45,6 +45,35 @@ namespace QWK {
 
     using ScreenRectCallback = std::function<QRect(const QSize &)>;
 
+    using IsWindowFixedSizeCallback = std::function<bool()>;
+    using IsInsideTitleBarDraggableAreaCallback = std::function<bool(const QPoint &)>;
+    using ShouldIgnoreMouseEventsCallback = std::function<bool(const QPoint &)>;
+
+    // using GetWindowFlagsCallback = std::function<Qt::WindowFlags()>;
+    // using SetWindowFlagsCallback = std::function<void(const Qt::WindowFlags)>;
+    // using GetWindowSizeCallback = std::function<QSize()>;
+    // using SetWindowSizeCallback = std::function<void(const QSize &)>;
+    // using GetWindowPositionCallback = std::function<QPoint()>;
+    // using SetWindowPositionCallback = std::function<void(const QPoint &)>;
+    // using GetWindowScreenCallback = std::function<QScreen *()>;
+    // using SetWindowFixedSizeCallback = std::function<void(const bool)>;
+    // using GetWindowStateCallback = std::function<Qt::WindowState()>;
+    // using SetWindowStateCallback = std::function<void(const Qt::WindowState)>;
+    // using GetWindowHandleCallback = std::function<QWindow *()>;
+    // using WindowToScreenCallback = std::function<QPoint(const QPoint &)>;
+    // using ScreenToWindowCallback = std::function<QPoint(const QPoint &)>;
+    // using IsInsideSystemButtonsCallback = std::function<bool(const QPoint &, Global::SystemButtonType *)>;
+    // using GetWindowDevicePixelRatioCallback = std::function<qreal()>;
+    // using SetSystemButtonStateCallback = std::function<void(const Global::SystemButtonType, const Global::ButtonState)>;
+    // using GetWindowIdCallback = std::function<WId()>;
+    // using ShowSystemMenuCallback = std::function<void(const QPoint &)>;
+    // using SetPropertyCallback = std::function<void(const QByteArray &, const QVariant &)>;
+    // using GetPropertyCallback = std::function<QVariant(const QByteArray &, const QVariant &)>;
+    // using SetCursorCallback = std::function<void(const QCursor &)>;
+    // using UnsetCursorCallback = std::function<void()>;
+    // using GetWidgetHandleCallback = std::function<QObject *()>;
+    // using ForceChildrenRepaintCallback = std::function<void(const int)>;
+
 }
 
 #endif // QWKGLOBAL_H

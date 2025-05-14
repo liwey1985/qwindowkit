@@ -34,6 +34,15 @@ namespace QWK {
         QVariant windowAttribute(const QString &key) const;
         Q_INVOKABLE bool setWindowAttribute(const QString &key, const QVariant &attribute);
 
+        //inline IsWindowFixedSizeCallback isWindowFixedSizeCallback() const;
+        void  setIsWindowFixedSizeCallback(const IsWindowFixedSizeCallback &callback);
+
+        //inline IsInsideTitleBarDraggableAreaCallback  isInsideTitleBarDraggableAreaCallback() const;
+        void setIsInsideTitleBarDraggableAreaCallback(const IsInsideTitleBarDraggableAreaCallback &callback);
+
+        //inline ShouldIgnoreMouseEventsCallback shouldIgnoreMouseEventsCallback() const;
+        void setShouldIgnoreMouseEventsCallback(const ShouldIgnoreMouseEventsCallback &callback);
+
     public Q_SLOTS:
         void showSystemMenu(const QPoint &pos); // Only available on Windows now
         void centralize();

@@ -136,8 +136,11 @@ namespace QWK {
                             if (edges != Qt::Edges()) {
                                 m_windowStatus = Resizing;
                                 startSystemResize(window, edges);
-                                event->accept();
-                                return true;
+                                auto callback = m_context->shouldIgnoreMouseEventsCallback();
+                                if(!callback || !callback(scenePos)) {
+                                    event->accept();
+                                    return true;
+                                }
                             }
                         }
                         if (inTitleBar) {
@@ -145,8 +148,11 @@ namespace QWK {
                             // movement, there will be no MouseReleaseEvent, so we defer it when the
                             // mouse is actually moving for the first time
                             m_windowStatus = PreparingMove;
-                            event->accept();
-                            return true;
+                            auto callback = m_context->shouldIgnoreMouseEventsCallback();
+                            if(!callback || !callback(scenePos)) {
+                                event->accept();
+                                return true;
+                            }
                         }
                         break;
                     }
@@ -176,8 +182,11 @@ namespace QWK {
                     }
                     default: {
                         if (inTitleBar) {
-                            event->accept();
-                            return true;
+                            auto callback = m_context->shouldIgnoreMouseEventsCallback();
+                            if(!callback || !callback(scenePos)) {
+                                event->accept();
+                                return true;
+                            }
                         }
                         break;
                     }
@@ -193,8 +202,12 @@ namespace QWK {
                     case PreparingMove: {
                         m_windowStatus = Moving;
                         startSystemMove(window);
-                        event->accept();
-                        return true;
+                        auto callback = m_context->shouldIgnoreMouseEventsCallback();
+                        if(!callback || !callback(scenePos)) {
+                            qInfo() << "accept move";
+                            event->accept();
+                            return true;
+                        }
                     }
                     case Idle: {
                         if (!fixedSize) {
@@ -228,8 +241,12 @@ namespace QWK {
                         } else {
                             delegate->setWindowState(host, windowState | Qt::WindowMaximized);
                         }
-                        event->accept();
-                        return true;
+                        auto callback = m_context->shouldIgnoreMouseEventsCallback();
+                        if(!callback || !callback(scenePos)) {
+                            qInfo() << "accept dblclick";
+                            event->accept();
+                            return true;
+                        }
                     }
                 }
                 break;

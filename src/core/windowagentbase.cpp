@@ -118,6 +118,21 @@ namespace QWK {
         return d->context->setWindowAttribute(key, attribute);
     }
 
+    void WindowAgentBase::setIsWindowFixedSizeCallback(const IsWindowFixedSizeCallback &callback) {
+        Q_D(WindowAgentBase);
+        d->context->setIsWindowFixedSizeCallback(callback);
+    }
+
+    void WindowAgentBase::setIsInsideTitleBarDraggableAreaCallback(const IsInsideTitleBarDraggableAreaCallback &callback) {
+        Q_D(WindowAgentBase);
+        d->context->setIsInsideTitleBarDraggableAreaCallback(callback);
+    }
+
+    void WindowAgentBase::setShouldIgnoreMouseEventsCallback(const ShouldIgnoreMouseEventsCallback &callback) {
+        Q_D(WindowAgentBase);
+        d->context->setShouldIgnoreMouseEventsCallback(callback);
+    }
+
     /*!
         Shows the system menu, it's only implemented on Windows.
     */

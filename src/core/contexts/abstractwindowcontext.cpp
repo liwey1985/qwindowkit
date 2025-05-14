@@ -83,6 +83,21 @@ namespace QWK {
     }
 #endif
 
+    void AbstractWindowContext::setIsWindowFixedSizeCallback(const IsWindowFixedSizeCallback &callback)
+    {
+        m_isWindowFixedSizeCallback = callback;
+    }
+
+    void AbstractWindowContext::setIsInsideTitleBarDraggableAreaCallback(const IsInsideTitleBarDraggableAreaCallback &callback)
+    {
+        m_isInsideTitleBarDraggableAreaCallback = callback;
+    }
+
+    void AbstractWindowContext::setShouldIgnoreMouseEventsCallback(const ShouldIgnoreMouseEventsCallback &callback)
+    {
+        m_shouldIgnoreMouseEventsCallback = callback;
+    }
+
     bool AbstractWindowContext::isInSystemButtons(const QPoint &pos,
                                                   WindowAgentBase::SystemButton *button) const {
         *button = WindowAgentBase::Unknown;
@@ -100,6 +115,10 @@ namespace QWK {
     }
 
     bool AbstractWindowContext::isInTitleBarDraggableArea(const QPoint &pos) const {
+        if(m_isInsideTitleBarDraggableAreaCallback) {
+            return m_isInsideTitleBarDraggableAreaCallback(pos);
+        }
+
         if (!m_titleBar) {
             // There's no title bar at all, the mouse will always be in the client area.
             return false;

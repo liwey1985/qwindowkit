@@ -61,6 +61,20 @@ namespace QWK {
         inline ScreenRectCallback systemButtonAreaCallback() const;
         void setSystemButtonAreaCallback(const ScreenRectCallback &callback);
 #endif
+        inline IsWindowFixedSizeCallback isWindowFixedSizeCallback() const {
+            return m_isWindowFixedSizeCallback;
+        }
+        void  setIsWindowFixedSizeCallback(const IsWindowFixedSizeCallback &callback);
+
+        inline IsInsideTitleBarDraggableAreaCallback  isInsideTitleBarDraggableAreaCallback() const {
+            return m_isInsideTitleBarDraggableAreaCallback;
+        }
+        void setIsInsideTitleBarDraggableAreaCallback(const IsInsideTitleBarDraggableAreaCallback &callback);
+
+        inline ShouldIgnoreMouseEventsCallback shouldIgnoreMouseEventsCallback() const {
+            return m_shouldIgnoreMouseEventsCallback;
+        }
+        void setShouldIgnoreMouseEventsCallback(const ShouldIgnoreMouseEventsCallback &callback);
 
         bool isInSystemButtons(const QPoint &pos, WindowAgentBase::SystemButton *button) const;
         bool isInTitleBarDraggableArea(const QPoint &pos) const;
@@ -78,6 +92,9 @@ namespace QWK {
                        : false;
         }
         inline bool isHostSizeFixed() const {
+            if(m_isWindowFixedSizeCallback && m_isWindowFixedSizeCallback()) {
+                return true;
+            }
             return m_windowHandle ? ((m_windowHandle->flags() & Qt::MSWindowsFixedSizeDialogHint) ||
                                      m_windowHandle->minimumSize() == m_windowHandle->maximumSize())
                                   : false;
@@ -120,6 +137,9 @@ namespace QWK {
 #ifdef Q_OS_MAC
         ScreenRectCallback m_systemButtonAreaCallback;
 #endif
+        IsWindowFixedSizeCallback m_isWindowFixedSizeCallback;
+        IsInsideTitleBarDraggableAreaCallback m_isInsideTitleBarDraggableAreaCallback;
+        ShouldIgnoreMouseEventsCallback m_shouldIgnoreMouseEventsCallback;
 
         QPointer<QObject> m_titleBar{};
         std::array<QPointer<QObject>, WindowAgentBase::Close + 1> m_systemButtons{};
